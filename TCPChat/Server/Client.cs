@@ -12,6 +12,9 @@ namespace Server
         NetworkStream stream;
         TcpClient client;
         public string UserId;
+
+        private List<IClient> 
+
         public Client(NetworkStream Stream, TcpClient Client)
         {
             stream = Stream;
@@ -30,6 +33,11 @@ namespace Server
             string recievedMessageString = Encoding.ASCII.GetString(recievedMessage);
             Console.WriteLine(recievedMessageString);
             return recievedMessageString;
+        }
+
+        public void Alert()
+        {
+            Console.WriteLine("{0} has entered the room.");
         }
 
     }

@@ -29,7 +29,7 @@ namespace Server
         {
             TcpClient clientSocket = default(TcpClient);
             clientSocket = server.AcceptTcpClient();
-            Console.WriteLine("{0}Connected",client.UserId);
+            Console.WriteLine("Connected");
             NetworkStream stream = clientSocket.GetStream();
             client = new Client(stream, clientSocket);
         }
@@ -38,7 +38,31 @@ namespace Server
              client.Send(body);
         }
 
+        public void AddObserver()
+        {
+
+        }
+
         //observer design pattern
+
+        //thread
+
+        //static void MainThread()
+        //{
+        //    Thread t = new Thread(Print1);
+
+        //    t.Start();
+
+        //    Console.ReadLine();
+        //}
+
+        //static void Print1()
+        //{
+        //    for (int i = 0; i < 1; i++;)
+        //    {
+
+        //    }
+        //}
 
         //dependency injection
 
