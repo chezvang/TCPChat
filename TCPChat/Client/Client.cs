@@ -21,22 +21,22 @@ namespace Client
         }
         public void Send()
         {
-            while (true)
-            {
+            //while (true)
+            //{
                 string messageString = UI.GetInput();
                 byte[] message = Encoding.ASCII.GetBytes(messageString);
                 stream.Write(message, 0, message.Count());
-            }
+            //}
         }
 
         public void Recieve()
         {
-            while (true)
-            {
+            //while (true)
+            //{
                 byte[] recievedMessage = new byte[256];
                 stream.Read(recievedMessage, 0, recievedMessage.Length);
                 UI.DisplayMessage(Encoding.ASCII.GetString(recievedMessage));
-            }
+            //}
         }
 
         //public void Update()

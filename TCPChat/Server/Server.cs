@@ -17,21 +17,19 @@ namespace Server
 
         Dictionary<int, Client> user = new Dictionary<int, Client>(); //add users to dictionary
         int userID = 0;
-        Queue<string> queueMessage = new Queue<string>();
+        Queue<string> queueMessage = new Queue<string>(); //add messages to queue
 
-        List<string> observer;
+        List<string> observer; //observer method
 
         public Server()
         {
-            server = new TcpListener(IPAddress.Parse("127.0.0.1"), 9999);
+            server = new TcpListener(IPAddress.Parse("192.168.0.118"), 9999);
             server.Start();
         }
 
         public void Run()
         {
             Task.Run(() => AcceptClient());
-            //string message = client.Recieve();
-            //Respond(message);
         }
 
         private void AcceptClient()
@@ -51,14 +49,14 @@ namespace Server
         {
             Client temp;
             string message = body;
-            while (true)
-            {
+            //while (true)
+            //{
                 foreach (KeyValuePair<int, Client> userID in user)
                 {
                     temp = userID.Value;
-                    temp.Send(queueMessage.Dequeue());
+                    temp.Send(message);
                 }
-            }
+            //}
         }
 
         public void Recieve()
@@ -75,27 +73,6 @@ namespace Server
             userID++;
             user.Add(userID, client);
         }
-
-        //observer design pattern
-
-        //thread
-
-        //static void MainThread()
-        //{
-        //    Thread t = new Thread(Print1);
-
-        //    t.Start();
-
-        //    Console.ReadLine();
-        //}
-
-        //static void Print1()
-        //{
-        //    for (int i = 0; i < 1; i++;)
-        //    {
-
-        //    }
-        //}
 
         //dependency injection
 
