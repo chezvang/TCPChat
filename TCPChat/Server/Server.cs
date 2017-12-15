@@ -15,11 +15,10 @@ namespace Server
         public static Client client;
         TcpListener server;
 
-        Dictionary<int, Client> user = new Dictionary<int, Client>(); //add users to dictionary
+        Dictionary<int, Client> user = new Dictionary<int, Client>();
         int userID = 0;
-        Queue<string> queueMessage = new Queue<string>(); //add messages to queue
-
-        List<string> observer; //observer method
+        Queue<string> queueMessage = new Queue<string>();
+        Log log = new Log();
 
         public Server()
         {
@@ -49,14 +48,12 @@ namespace Server
         {
             Client temp;
             string message = body;
-            //while (true)
-            //{
-                foreach (KeyValuePair<int, Client> userID in user)
-                {
-                    temp = userID.Value;
-                    temp.Send(message);
-                }
-            //}
+            log.WriteToLog(message);
+            foreach (KeyValuePair<int, Client> userID in user)
+            {
+                temp = userID.Value;
+                temp.Send(message);
+            }
         }
 
         public void Recieve()

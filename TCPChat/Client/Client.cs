@@ -12,13 +12,23 @@ namespace Client
     {
         TcpClient clientSocket;
         NetworkStream stream;
+        public string username;
 
         public Client(string IP, int port)
         {
             clientSocket = new TcpClient();
             clientSocket.Connect(IPAddress.Parse(IP), port);
             stream = clientSocket.GetStream();
+            GetUserName();
         }
+
+        public void GetUserName()
+        {
+            Console.WriteLine("Please enter your username: ");
+            username = UI.GetInput();
+            Update(username);
+        }
+
         public void Send()
         {
             //while (true)
@@ -39,11 +49,11 @@ namespace Client
             //}
         }
 
-        //public void Update()
-        //{
-        //    string messageString = //username "has entered the room"
-        //    byte[] message = Encoding.ASCII.GetBytes(messageString);
-        //    stream.Write(message, 0, message.Count());
-        //}
+        public void Update(string username)
+        {
+            string messageString = username + " has entered the room";
+            byte[] message = Encoding.ASCII.GetBytes(messageString);
+            stream.Write(message, 0, message.Count());
+        }
     }
 }
