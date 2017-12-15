@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    class ClientSubscriber : IClient
+    class ClientSubscriber
     {
-        public List<IClient> clientSub = new List<IClient>();
+        private string clientName;
 
-        public void AddClient(IClient clientSub)
+        public void Update(Observer client)
         {
-
+            Console.WriteLine(clientName + "has entered the chatroom.");
         }
+
     }
 }

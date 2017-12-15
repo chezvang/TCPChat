@@ -6,39 +6,35 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    class Observer : IObserver <string>
+    abstract class Observer
     {
-        public string ObserverName { get; private set; }
+        private List<IClient> clientObserver = new List<IClient>();
+        private string ObserverName;
+
+        ClientSubscriber clientSubscriber = new ClientSubscriber();
 
         public Observer(string name)
         {
             this.ObserverName = name;
         }
 
-        public AddObserver()
+        public void AddObserver(IClient newClient)
         {
+            clientObserver.Add(newClient);
+        }
 
+        public void RemoveObserver(IClient removeClient)
+        {
+            clientObserver.Remove(removeClient);
         }
 
         public void Alert()
         {
-            Console.WriteLine(ObserverName + "has entered the chatroom");
+            foreach (IClient client in clientObserver)
+            {
+                clientSubscriber.Update(this);
+            }
         }
 
-
-        public void OnNext(string value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnError(Exception error)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnCompleted()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

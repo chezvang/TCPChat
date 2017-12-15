@@ -14,33 +14,47 @@ namespace Server
     {
         public static Client client;
         TcpListener server;
+
+        Dictionary<int, Client> user = new Dictionary<int, Client>(); //add users to dictionary
+        int userID = 0;
+
+        List<string> observer;
+
         public Server()
         {
             server = new TcpListener(IPAddress.Parse("127.0.0.1"), 9999);
             server.Start();
         }
+
         public void Run()
         {
-            AcceptClient();
-            string message = client.Recieve();
-            Respond(message);
+            Task.Run(() => AcceptClient());
+            //string message = client.Recieve();
+            //Respond(message);
         }
+
         private void AcceptClient()
         {
-            TcpClient clientSocket = default(TcpClient);
-            clientSocket = server.AcceptTcpClient();
-            Console.WriteLine("Connected");
-            NetworkStream stream = clientSocket.GetStream();
-            client = new Client(stream, clientSocket);
+            while (true)
+            {
+                TcpClient clientSocket = default(TcpClient);
+                clientSocket = server.AcceptTcpClient();
+                Console.WriteLine("Connected");
+                NetworkStream stream = clientSocket.GetStream();
+                client = new Client(stream, clientSocket);
+                //Task.Run(() => ReceiveMessage(client)); //server always listening to the client
+                AddToDictionary(client);
+            }
         }
         private void Respond(string body)
         {
              client.Send(body);
         }
 
-        public void AddObserver()
+        public void AddToDictionary(Client client)
         {
-
+            userID++;
+            user.Add(userID, client);
         }
 
         //observer design pattern

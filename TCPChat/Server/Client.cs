@@ -13,7 +13,7 @@ namespace Server
         TcpClient client;
         public string UserId;
 
-        private List<IClient> 
+        //private List<IClient> 
 
         public Client(NetworkStream Stream, TcpClient Client)
         {

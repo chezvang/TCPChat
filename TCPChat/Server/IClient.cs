@@ -8,7 +8,7 @@ namespace Server
 {
     interface IClient
     {
-        void Update(Client client);
+        void Update();
 
     }
 }
