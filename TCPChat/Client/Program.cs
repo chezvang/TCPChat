@@ -10,7 +10,7 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            Client client = new Client("192.168.0.118", 9999); //127.0.0.1
+            Client client = new Client("127.0.0.1", 9999); //127.0.0.1
 
             Parallel.Invoke(() =>
             {
@@ -24,10 +24,8 @@ namespace Client
                 while (true)
                 {
                     client.Recieve();
-                }          
+                }
             });
-
-            Console.ReadLine();
         }
     }
 }

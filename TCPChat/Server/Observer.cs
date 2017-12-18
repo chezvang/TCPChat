@@ -26,6 +26,8 @@ namespace Server
         public void RemoveObserver(IClient removeClient)
         {
             clientObserver.Remove(removeClient);
+
+            Console.WriteLine("");
         }
 
         public void Alert()
